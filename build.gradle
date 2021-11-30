@@ -1,0 +1,37 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31' apply true
+    id "me.champeau.gradle.jmh" version "0.5.0"
+}
+group = "ru.kontur.kinfra.kfixture"
+
+version '0.7.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+
+
+    jmh 'org.openjdk.jmh:jmh-core:1.23'
+    jmh 'org.openjdk.jmh:jmh-generator-annprocess:1.23'
+}
+compileJava.dependsOn(processResources)
+
+test.testLogging {
+    showStandardStreams = true
+}
+
+archivesBaseName = "kfixture"
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
