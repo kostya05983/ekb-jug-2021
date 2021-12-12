@@ -1,21 +1,16 @@
 package ru.kontur.test.benchmark
 
 import org.openjdk.jmh.annotations.*
-import java.util.*
+import ru.kontur.kinfra.kfixture.utils.FixtureUtils
 
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 1)
 @Measurement(iterations = 5, batchSize = 1)
 @State(value = Scope.Benchmark)
-open class FuncBenchmark {
+open class KFixtureBenchmark {
 
     @Benchmark
     fun shouldGenerate() {
-        User(
-            id = UUID.randomUUID(),
-            type = UserType.TYPE_1,
-            notificationId = UUID.randomUUID(),
-            onceMoreId = UUID.randomUUID()
-        )
+        val fixture = FixtureUtils.createClazz<User>()
     }
 }
